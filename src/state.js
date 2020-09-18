@@ -1,3 +1,7 @@
+import {
+  observe
+} from "./observer/index"
+
 export function initState(vm) {
   const opts = vm.$options
   if (opts.props) {
@@ -23,7 +27,11 @@ function initMethods(vm) {}
 
 function initData(vm) {
   let data = vm.$options.data
-  console.log(data)
+  vm._data = data = typeof data === 'function' ? data.call(vm) : data
+
+  // 数据劫持方案  object.defineProperty
+  // 数组单独处理
+  observe(data)
 }
 
 function initComputed(vm) {}

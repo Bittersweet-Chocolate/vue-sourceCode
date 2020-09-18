@@ -8,6 +8,5 @@ export function initMixin(Vue) {
     // 初始化状态 （初始化劫持数据，改变数据时更新视图）
     // 添加状态
     initState(vm)
-    console.log(options)
   }
 }
