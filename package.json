@@ -1,0 +1,28 @@
+{
+  "name": "vue-sourcecode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bittersweet-Chocolate/vue-sourceCode.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bittersweet-Chocolate/vue-sourceCode/issues"
+  },
+  "homepage": "https://github.com/Bittersweet-Chocolate/vue-sourceCode#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "rollup": "^2.27.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-serve": "^1.0.4"
+  }
+}
