@@ -10,19 +10,25 @@
 <body>
   <script src="dist/umd/vue.js"></script>
   <script>
+    let span = document.createElement('span')
+    span.setAttribute('id','span')
+    document.body.appendChild(span)
     let vm = new Vue({
       el: '#app',
       data() {
         return {
-          arr: [{b:123}]
+          arr:[{a:1}]
         }
-      }
+      },
+      // render(h){
+      //   return h('div',{id:'a'},'hello')
+      // }
+      template:`<div id="a">hello</div>`
     })
-
     // 开发功能时很少对数组索引进行操作，为了考虑性能不对数组进行拦截
     // 拦截可以改变数组的方法进行操作
-    vm._data.arr.push({b:2})
-    vm._data.arr[1].b=100
+    // vm._data.arr[1].b=100
+    vm.arr=100
   </script>
 </body>
 

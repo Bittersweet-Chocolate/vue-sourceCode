@@ -1,3 +1,11 @@
+/*
+ * @Author: zihao.chen
+ * @Date: 2020-09-18 16:02:00
+ * @LastEditors: zihao.chen
+ * @LastEditTime: 2020-12-22 16:24:15
+ * @Description: vue 初始化
+ */
+
 import { initState } from "./state"
 
 export function initMixin(Vue) {

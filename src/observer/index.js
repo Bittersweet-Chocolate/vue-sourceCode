@@ -1,16 +1,19 @@
-import {
-  arrayMethods
-} from './array'
+/*
+ * @Author: zihao.chen
+ * @Date: 2020-09-18 16:23:04
+ * @LastEditors: zihao.chen
+ * @LastEditTime: 2020-12-23 14:43:36
+ * @Description: vue 观察属性，拦截对象
+ */
+
+import { arrayMethods } from './array'
+import { defineProperty } from '../utils'
+
+// 封装 继承
 class Observer {
   constructor(value) {
-
-    // 判断一个对象有没有被观测过，看有没有__ob__这个属性
-    Object.defineProperty(value, '__ob__', {
-      enumerable: false, // 设置不可枚举，不能被循环
-      configurable: false,
-      value: this
-    })
-
+    
+    defineProperty(value,'__ob__',this)
 
     if (Array.isArray(value)) {
       // 函数劫持、切片编程
@@ -28,7 +31,7 @@ class Observer {
     });
   }
   walk(data) {
-    let keys = Object.keys(data)
+    let keys = Object.keys(data) //拿到最外层的key
     // 循环监听属性
     keys.forEach(item => {
       defineReactive(data, item, data[item]);
@@ -37,7 +40,7 @@ class Observer {
 }
 
 function defineReactive(data, key, value) {
-  observe(value)
+  observe(value) // 如果值是对象类型继续观测,递归代理
   Object.defineProperty(data, key, {
     get() {
       console.log('取值')
@@ -52,7 +55,7 @@ function defineReactive(data, key, value) {
   })
 }
 export function observe(data) {
-  if (typeof data !== 'object' && data !== null) {
+  if (typeof data !== 'object' || data === null) {
     return data
   }
   if (data.__ob__) {
