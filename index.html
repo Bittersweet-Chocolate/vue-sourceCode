@@ -8,6 +8,12 @@
 </head>
 
 <body>
+  <div id="app">
+    {{arr}}
+    <ul>
+      <li>{{school.name}}</li>
+    </ul>
+  </div>
   <script src="dist/umd/vue.js"></script>
   <script>
     let span = document.createElement('span')
@@ -23,12 +29,14 @@
       // render(h){
       //   return h('div',{id:'a'},'hello')
       // }
-      template:`<div id="a">hello</div>`
+      // template:`<div id="a">hello</div>`
     })
     // 开发功能时很少对数组索引进行操作，为了考虑性能不对数组进行拦截
     // 拦截可以改变数组的方法进行操作
     // vm._data.arr[1].b=100
-    vm.arr=100
+    // vm.arr=100
+
+    // 渲染操作 1.render函數，2.template，3.找到当前指定的el元素
   </script>
 </body>
 
