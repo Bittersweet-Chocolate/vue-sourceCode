@@ -1,3 +1,10 @@
+<!--
+ * @Author: zihao.chen
+ * @Date: 2020-09-18 15:33:15
+ * @LastEditors: zihao.chen
+ * @LastEditTime: 2021-01-21 14:06:55
+ * @Description: 
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,22 +15,20 @@
 </head>
 
 <body>
-  <div id="app">
+  <div id="app" class="test">
     {{arr}}
-    <ul>
+    <ul class="ul-test">
       <li>{{school.name}}</li>
     </ul>
   </div>
   <script src="dist/umd/vue.js"></script>
   <script>
-    let span = document.createElement('span')
-    span.setAttribute('id','span')
-    document.body.appendChild(span)
     let vm = new Vue({
       el: '#app',
       data() {
         return {
-          arr:[{a:1}]
+          arr:[{a:1}],
+          school:{name:'123'}
         }
       },
       // render(h){
@@ -36,7 +41,7 @@
     // vm._data.arr[1].b=100
     // vm.arr=100
 
-    // 渲染操作 1.render函數，2.template，3.找到当前指定的el元素
+    // 渲染操作 1.查找render函數，2.查找template，3.找到当前指定的el元素
   </script>
 </body>
 
