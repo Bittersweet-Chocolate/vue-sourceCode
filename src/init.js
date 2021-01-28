@@ -2,7 +2,7 @@
  * @Author: zihao.chen
  * @Date: 2020-09-18 16:02:00
  * @LastEditors: zihao.chen
- * @LastEditTime: 2021-01-14 16:38:23
+ * @LastEditTime: 2021-01-21 16:55:52
  * @Description: vue 初始化
  */
 
@@ -44,6 +44,7 @@ export function initMixin(Vue) {
       const render = compileToFunction(template);
       // 绑定render
       options.render=render
+      console.log(render)
     }
   }
 }
