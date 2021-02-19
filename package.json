@@ -27,5 +27,11 @@
     "rollup": "^2.27.1",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-serve": "^1.0.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
+    }
   }
 }
