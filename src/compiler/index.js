@@ -2,7 +2,7 @@
  * @Author: zihao.chen
  * @Date: 2021-01-14 14:41:12
  * @LastEditors: zihao.chen
- * @LastEditTime: 2021-01-21 17:13:42
+ * @LastEditTime: 2021-02-02 16:04:22
  * @Description: 编译html
  */
 import { parseHTML } from './parse'
@@ -14,7 +14,8 @@ export function compileToFunction(template) {
 
   // 2.优化静态节点
 
-  // 3.ast数重新生成代码
+  // 3.ast数重新生成代码 
+  // 类似 render函数中return的代码
   let code = generate(ast)
-  return ast
+  return code
 }
