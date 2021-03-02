@@ -2,7 +2,7 @@
  * @Author: zihao.chen
  * @Date: 2021-01-14 14:41:12
  * @LastEditors: zihao.chen
- * @LastEditTime: 2021-02-02 16:04:22
+ * @LastEditTime: 2021-03-01 16:16:47
  * @Description: 编译html
  */
 import { parseHTML } from './parse'
@@ -17,5 +17,9 @@ export function compileToFunction(template) {
   // 3.ast数重新生成代码 
   // 类似 render函数中return的代码
   let code = generate(ast)
-  return code
+
+  // 将字符串转成函数 限制取值范围，通过with取值，调用render函数，改变this让函数内部去到结果
+  let render = new Function(`with(this){ return ${code}}`)
+  
+  return render
 }

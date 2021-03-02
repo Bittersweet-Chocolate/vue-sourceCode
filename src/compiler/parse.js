@@ -2,7 +2,7 @@
  * @Author: zihao.chen
  * @Date: 2021-01-21 16:49:20
  * @LastEditors: zihao.chen
- * @LastEditTime: 2021-01-21 17:13:22
+ * @LastEditTime: 2021-02-26 16:29:03
  * @Description: 转化ast树
  */
 const unicodeRegExp = /a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD/
@@ -19,20 +19,17 @@ const doctype = /^<!DOCTYPE [^>]+>/i
 const comment = /^<!\--/
 const conditionalComment = /^<!\[/
 
-// vue 中 text-parser的正则
-const defaultTagRE = /\{\{((?:.|\r?\n)+?)\}\}/g
-const regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g
-
 let root;
 let currentParent;
 let stack = [] // 校验标签是否正确  
-
+const eleType = 1 // 元素类型
+const textType = 3 // 文本类型
 export function parseHTML(html) {
 
   function createASTElement(tag, attrs) {
     return {
       tag, // 标签名
-      type: 1, // 元素类型
+      type: eleType, // 元素类型
       attrs, //属性集合
       children: [],
       parent: null
@@ -62,7 +59,7 @@ export function parseHTML(html) {
   function chars(text) {
     if (text.trim()) {
       currentParent.children.push({
-        type: 3, // 文本类型
+        type: textType, // 文本类型
         text
       })
     }

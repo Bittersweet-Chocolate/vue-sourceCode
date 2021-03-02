@@ -2,7 +2,7 @@
  * @Author: zihao.chen
  * @Date: 2020-09-18 16:02:00
  * @LastEditors: zihao.chen
- * @LastEditTime: 2021-01-21 16:55:52
+ * @LastEditTime: 2021-03-01 17:01:39
  * @Description: vue 初始化
  */
 
@@ -11,6 +11,7 @@ import {
 } from "./state"
 
 import {compileToFunction} from './compiler/index.js'
+import {mountComponent} from './lifecycle'
 
 export function initMixin(Vue) {
   // vue 初始化
@@ -32,7 +33,6 @@ export function initMixin(Vue) {
     const options = vm.$options
     el = document.querySelector(el)
     // 获取传递的el，dom节点
-    console.log(el)
 
     if (!vm.$options.render) {
       // 获取当前模板
@@ -44,7 +44,10 @@ export function initMixin(Vue) {
       const render = compileToFunction(template);
       // 绑定render
       options.render=render
-      console.log(render)
     }
+    // 渲染时都需要render 方法
+
+    // 挂载当前组件
+    mountComponent(vm,el)
   }
 }
