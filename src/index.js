@@ -2,13 +2,13 @@
  * @Author: zihao.chen
  * @Date: 2020-09-18 15:16:40
  * @LastEditors: zihao.chen
- * @LastEditTime: 2021-03-01 16:57:29
+ * @LastEditTime: 2021-03-02 15:54:50
  * @Description: vue加载
  */
 
 import {initMixin} from './init'
 import { lifecycleMixin } from './lifecycle'
-import { renderMixin } from './vnode/index'
+import { renderMixin } from './vDom/index'
 function Vue(options) {
   this._init(options)
 }

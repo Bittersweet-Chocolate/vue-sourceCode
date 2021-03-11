@@ -2,7 +2,7 @@
  * @Author: zihao.chen
  * @Date: 2020-09-18 15:33:15
  * @LastEditors: zihao.chen
- * @LastEditTime: 2021-03-01 16:03:47
+ * @LastEditTime: 2021-03-11 17:14:39
  * @Description: 
 -->
 <!DOCTYPE html>
@@ -15,12 +15,8 @@
 </head>
 
 <body>
-  <div id="app" class="test" style="color: red;">
-    hello {{arr}}
-    <ul class="ul-test">
-      <li>{{school.name}}</li>
-      <li>test1</li>
-    </ul>
+  <div id="app" class="test" style="color: red;">hello {{name}} world {{msg}}
+  <span>hello</span>
   </div>
   <script src="dist/umd/vue.js"></script>
   <script>
@@ -28,8 +24,8 @@
       el: '#app',
       data() {
         return {
-          arr:[{a:1}],
-          school:{name:'123'}
+          name: 'test',
+          msg: 'text'
         }
       },
       // render(h){

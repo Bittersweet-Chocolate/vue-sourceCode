@@ -2,7 +2,7 @@
  * @Author: zihao.chen
  * @Date: 2020-09-18 16:23:04
  * @LastEditors: zihao.chen
- * @LastEditTime: 2020-12-23 14:43:36
+ * @LastEditTime: 2021-03-11 17:27:50
  * @Description: vue 观察属性，拦截对象
  */
 
@@ -43,11 +43,9 @@ function defineReactive(data, key, value) {
   observe(value) // 如果值是对象类型继续观测,递归代理
   Object.defineProperty(data, key, {
     get() {
-      console.log('取值')
       return value
     },
     set(newValue) {
-      console.log('设置值')
       if (newValue === value) return
       observe(newValue) //用户将值改为对象继续监控
       value = newValue

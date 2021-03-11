@@ -2,7 +2,7 @@
  * @Author: zihao.chen
  * @Date: 2021-01-21 17:12:42
  * @LastEditors: zihao.chen
- * @LastEditTime: 2021-03-01 15:52:50
+ * @LastEditTime: 2021-03-11 17:09:31
  * @Description: 根据ast树生成代码
  */
 //   <div id="app" class="test">hello{{name}}<span>hello</span><div>
@@ -70,6 +70,6 @@ function getChildren(el) {
 
 export function generate(el) {
   let children = getChildren(el)
-  let code = `_c('${el.tag}',${el.attrs.length ? `${genProps(el.attrs)}`:'undefined'}${children ? `,${children}` : '' })`
+  let code = `_c('${el.tag}',${el.attrs.length ? `${genProps(el.attrs)}`:'undefined'}${children ? `,${children}` : '' })`;
   return code
 }
