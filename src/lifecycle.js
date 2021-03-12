@@ -2,12 +2,15 @@
  * @Author: zihao.chen
  * @Date: 2021-03-01 16:43:09
  * @LastEditors: zihao.chen
- * @LastEditTime: 2021-03-01 16:49:21
+ * @LastEditTime: 2021-03-12 14:46:42
  * @Description: 生命周期
  */
+
+import { patch } from "./vDom/patch"
 export function lifecycleMixin(Vue){
   Vue.prototype._update = function (vnode){
-    
+    const vm = this
+    patch(vm.$el,vnode)
   }
 }
 

@@ -2,12 +2,12 @@
  * @Author: zihao.chen
  * @Date: 2021-01-21 17:12:42
  * @LastEditors: zihao.chen
- * @LastEditTime: 2021-03-11 17:09:31
+ * @LastEditTime: 2021-03-12 10:28:12
  * @Description: 根据ast树生成代码
  */
 //   <div id="app" class="test">hello{{name}}<span>hello</span><div>
 //  render(){
-//  return _c('div',{id:'app',class:'test',_v('hello'+_s(name)),_c('span',null,_v('hello')))
+//  return _c('div',{id:'app',class:'test'},_v('hello'+_s(name)),_c('span',null,_v('hello')))
 // }
 
 // vue 中 text-parser的正则
