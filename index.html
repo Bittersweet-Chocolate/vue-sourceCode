@@ -1,44 +1,58 @@
 <!--
  * @Author: zihao.chen
  * @Date: 2020-09-18 15:33:15
- * @LastEditors: zihao.chen
- * @LastEditTime: 2021-03-12 09:56:58
+ * @LastEditors: czh
+ * @LastEditTime: 2021-09-25 22:54:24
  * @Description: 
 -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
 </head>
 
 <body>
-  <div id="app" class="test" style="color: red;">
+  <div id="app" class="test" style="color: red">
     hello {{name}} world {{msg}}
   </div>
   <script src="dist/umd/vue.js"></script>
   <script>
+    // 混合注入
+    Vue.mixin({
+      created() { // 生命周期
+        console.log('mixin初始化')
+      },
+    })
+    Vue.mixin({
+      created() { // 生命周期
+        console.log('mixin初始化')
+      },
+    })
     let vm = new Vue({
       el: '#app',
       data() {
         return {
           name: 'test',
-          msg: 'text'
+          msg: 'text',
+          arr: [1, 2, 3],
         }
+      },
+      created() { // 生命周期
+        console.log('初始化')
       },
       // render(h){
       //   return h('div',{id:'a'},'hello')
       // }
       // template:`<div id="a">hello</div>`
     })
-    // 开发功能时很少对数组索引进行操作，为了考虑性能不对数组进行拦截
-    // 拦截可以改变数组的方法进行操作
-    // vm._data.arr[1].b=100
-    // vm.arr=100
-
-    // 渲染操作 1.查找render函數，2.查找template，3.找到当前指定的el元素
+      // 开发功能时很少对数组索引进行操作，为了考虑性能不对数组进行拦截
+      // 拦截可以改变数组的方法进行操作
+      // vm._data.arr[1].b=100
+      // vm.arr=100
+      // 渲染操作 1.查找render函數，2.查找template，3.找到当前指定的el元素
   </script>
 </body>
 

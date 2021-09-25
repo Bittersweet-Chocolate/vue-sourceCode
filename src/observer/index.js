@@ -1,8 +1,8 @@
 /*
  * @Author: zihao.chen
  * @Date: 2020-09-18 16:23:04
- * @LastEditors: zihao.chen
- * @LastEditTime: 2021-03-11 17:27:50
+ * @LastEditors: czh
+ * @LastEditTime: 2021-09-25 22:25:15
  * @Description: vue 观察属性，拦截对象
  */
 
@@ -12,8 +12,7 @@ import { defineProperty } from '../utils'
 // 封装 继承
 class Observer {
   constructor(value) {
-    
-    defineProperty(value,'__ob__',this)
+    defineProperty(value, '__ob__', this)
 
     if (Array.isArray(value)) {
       // 函数劫持、切片编程
