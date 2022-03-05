@@ -2,7 +2,7 @@
  * @Author: zihao.chen
  * @Date: 2020-09-18 16:02:00
  * @LastEditors: czh
- * @LastEditTime: 2021-09-25 23:00:16
+ * @LastEditTime: 2021-09-25 23:11:40
  * @Description: vue 初始化
  */
 
@@ -17,6 +17,7 @@ export function initMixin(Vue) {
   Vue.prototype._init = function(options) {
     const vm = this
     // options和全局的options进行合并
+    // vm.constructor.options 避免使用 Vue.options ,因为子组件调用init方法可能不是全局的
     vm.$options = mergeOptions(vm.constructor.options, options)
     callHook(vm, 'beforeCreat')
     // 初始化状态 （初始化劫持数据，改变数据时更新视图）
