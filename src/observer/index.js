@@ -1,13 +1,14 @@
 /*
  * @Author: zihao.chen
  * @Date: 2020-09-18 16:23:04
- * @LastEditors: czh
- * @LastEditTime: 2021-09-25 22:25:15
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-03-20 17:59:05
  * @Description: vue 观察属性，拦截对象
  */
 
 import { arrayMethods } from './array'
 import { defineProperty } from '../utils'
+import Dep from './dep'
 
 // 封装 继承
 class Observer {
@@ -40,14 +41,22 @@ class Observer {
 
 function defineReactive(data, key, value) {
   observe(value) // 如果值是对象类型继续观测,递归代理
+  let dep = new Dep() // 每一个属性都有一个dep
+  // 当页面取值时，说明这个值用来渲染了
   Object.defineProperty(data, key, {
     get() {
+      // 依赖收集
+      if (Dep.target) {
+        dep.depend()
+      }
       return value
     },
     set(newValue) {
       if (newValue === value) return
       observe(newValue) //用户将值改为对象继续监控
       value = newValue
+      // 依赖更新
+      dep.notify()
     }
   })
 }

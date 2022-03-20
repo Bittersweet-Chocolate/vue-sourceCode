@@ -1,24 +1,34 @@
 /*
  * @Author: zihao.chen
  * @Date: 2021-03-01 16:43:09
- * @LastEditors: czh
- * @LastEditTime: 2021-09-25 22:59:50
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-03-20 11:44:00
  * @Description: 生命周期
  */
 
+import Watcher from "./observer/watcher"
 import { patch } from "./vDom/patch"
 export function lifecycleMixin(Vue) {
   Vue.prototype._update = function(vnode) {
     const vm = this
-    patch(vm.$el, vnode)
+    // 用新创建的元素，替换掉老的vm.$el
+    vm.$el = patch(vm.$el, vnode)
   }
 }
 
 export function mountComponent(vm, el) {
+  // 获取传递的el，dom节点
+  vm.$el = el
   callHook(vm, 'beforeMount')
   // 调用render方法去渲染 el属性
   // 先调用render方法创建虚拟节点，再将虚拟节点渲染到页面上
-  vm._update(vm._render())
+  // vm._update(vm._render())
+  let updateComponent = () => {
+    vm._update(vm._render())
+  }
+  // 这个watcher用于渲染
+  let watcher = new Watcher(vm, updateComponent, () => {}, true)
+  // 把属性和watcher绑定在一起
   callHook(vm, 'mounted')
 }
 

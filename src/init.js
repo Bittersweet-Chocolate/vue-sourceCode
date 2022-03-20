@@ -1,8 +1,8 @@
 /*
  * @Author: zihao.chen
  * @Date: 2020-09-18 16:02:00
- * @LastEditors: czh
- * @LastEditTime: 2021-09-25 23:11:40
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-03-20 11:29:01
  * @Description: vue 初始化
  */
 
@@ -33,8 +33,6 @@ export function initMixin(Vue) {
     const vm = this;
     const options = vm.$options
     el = document.querySelector(el)
-    // 获取传递的el，dom节点
-    vm.$el = el
     if (!vm.$options.render) {
       // 获取当前模板
       let template = options.template;
