@@ -1,8 +1,6 @@
 <!--
  * @Author: zihao.chen
  * @Date: 2020-09-18 15:33:15
- * @LastEditors: czh
- * @LastEditTime: 2021-09-25 22:54:24
  * @Description: 
 -->
 <!DOCTYPE html>
@@ -17,6 +15,7 @@
 <body>
   <div id="app" class="test" style="color: red">
     hello {{name}} world {{msg}}
+    {{arr}}
   </div>
   <script src="dist/umd/vue.js"></script>
   <script>
@@ -38,6 +37,7 @@
           name: 'test',
           msg: 'text',
           arr: [1, 2, 3],
+          age: 123,
         }
       },
       created() { // 生命周期

@@ -6,12 +6,16 @@
 // 多对多的关系，一个属性有一个dep是用来收集watcher的
 // dep 可以存多个watcher vm.$watch('name')
 // 一个watcher可以有多个dep
+let id = 0
 class Dep {
   constructor() {
     this.subs = []
+    this.id = id++
   }
   depend() {
-    this.subs.push(Dep.target)
+    // 这里需要watcher存放dep
+    Dep.target.addDep(this)
+    // this.subs.push(Dep.target)
   }
   notify() {
     this.subs.forEach(wather => wather.update())

@@ -1,8 +1,6 @@
 /*
  * @Author: zihao.chen
  * @Date: 2020-12-23 14:31:00
- * @LastEditors: czh
- * @LastEditTime: 2021-09-25 22:52:26
  * @Description: 
  */
 
@@ -29,7 +27,7 @@ export function defineProperty(target, key, value) {
 }
 
 export const LIFECYCLE_HOOKS = [
-  'beforeCreated',
+  'beforeCreate',
   'created',
   'beforeMount',
   'mounted',

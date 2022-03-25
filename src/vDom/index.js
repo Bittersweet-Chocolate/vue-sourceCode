@@ -1,8 +1,6 @@
 /*
  * @Author: zihao.chen
  * @Date: 2021-03-01 16:52:36
- * @LastEditors: czh
- * @LastEditTime: 2021-09-25 22:25:26
  * @Description: 生成虚拟dom的结构
  */
 export function renderMixin(Vue) {

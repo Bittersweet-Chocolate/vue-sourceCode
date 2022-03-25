@@ -1,8 +1,6 @@
 /*
  * @Author: zihao.chen
  * @Date: 2021-01-14 14:41:12
- * @LastEditors: zihao.chen
- * @LastEditTime: 2021-03-12 09:47:59
  * @Description: 编译html
  */
 import { parseHTML } from './parse'

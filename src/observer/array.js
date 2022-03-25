@@ -1,8 +1,6 @@
 /*
  * @Author: zihao.chen
  * @Date: 2020-10-13 15:36:34
- * @LastEditors: zihao.chen
- * @LastEditTime: 2020-12-22 14:04:23
  * @Description: vue劫持数组方法处理
  */
 
@@ -38,6 +36,8 @@ methods.forEach(method => {
         break;
     }
     if (inserted) ob.observeArray(inserted) // 给数组新增
+    // __ob__ 存放的就是this，this中有dep刚好触发
+    ob.dep.notify();
     return res
   }
 })

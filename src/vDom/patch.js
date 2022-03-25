@@ -1,8 +1,6 @@
 /*
  * @Author: zihao.chen
  * @Date: 2021-03-12 14:42:25
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-03-20 11:30:54
  * @Description: 
  */
 export function patch(oldVnode, vnode) {
