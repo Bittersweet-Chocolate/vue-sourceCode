@@ -48,7 +48,7 @@ function defineReactive(data, key, value) {
       // 依赖收集
       if (Dep.target) {
         dep.depend()
-        if(childDep){
+        if (childDep && childDep.dep) {
           childDep.dep.depend() // 给最外层存一个，方便后续数组处理，存储这个渲染watcher
         }
       }
