@@ -42,8 +42,8 @@ const strats = {
   data(parentVal, childVal) {
     return childVal || parentVal
   },
-  watch() {},
-  computed() {}
+  // watch() {},
+  // computed() {}
 }
 
 function mergeHook(parentVal, childVal) {
@@ -72,13 +72,11 @@ export function mergeOptions(parent, child) {
   }
   //  遍历父级，处理父子都有的
   for (let key in parent) {
-    console.log('1', key)
     mergeField(key)
   }
   // 遍历子级，处理仅子级有的
   for (let key in child) {
     if (!parent.hasOwnProperty(key)) {
-      console.log('2', key)
       mergeField(key)
     }
   }

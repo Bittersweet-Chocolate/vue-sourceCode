@@ -20,16 +20,16 @@
   <script src="dist/umd/vue.js"></script>
   <script>
     // 混合注入
-    Vue.mixin({
-      created () { // 生命周期
-        console.log('mixin初始化')
-      },
-    })
-    Vue.mixin({
-      created () { // 生命周期
-        console.log('mixin初始化')
-      },
-    })
+    // Vue.mixin({
+    //   created () { // 生命周期
+    //     console.log('mixin初始化')
+    //   },
+    // })
+    // Vue.mixin({
+    //   created () { // 生命周期
+    //     console.log('mixin初始化')
+    //   },
+    // })
     let vm = new Vue({
       el: '#app',
       data () {
@@ -43,6 +43,13 @@
       created () { // 生命周期
         console.log('初始化')
       },
+      watch: {
+        name: {
+          handler (newV, oldV) {
+            console.log(newV, oldV)
+          }
+        }
+      }
       // render(h){
       //   return h('div',{id:'a'},'hello')
       // }
@@ -53,13 +60,16 @@
     // vm._data.arr[1].b=100
     // vm.arr=100
     // 渲染操作 1.查找render函數，2.查找template，3.找到当前指定的el元素
+    // setTimeout(_ => {
+    //   vm.arr.push(1)
+    //   console.log(vm.$el)
+    //   vm.arr.push(2)
+    //   vm.$nextTick(_ => {
+    //     console.log(vm.$el)
+    //   })
+    // }, 1000)
     setTimeout(_ => {
-      vm.arr.push(1)
-      console.log(vm.$el)
-      vm.arr.push(2)
-      vm.$nextTick(_ => {
-        console.log(vm.$el)
-      })
+      vm.name = 12
     }, 1000)
   </script>
 </body>
