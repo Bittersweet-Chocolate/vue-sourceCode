@@ -4,6 +4,7 @@
  * @Description: 
  */
 import { pushTarget, popTarget } from './dep'
+import { nextTick } from '../utils'
 let id = 0
 class Watcher {
   // exprOrFn 重新渲染
@@ -21,8 +22,8 @@ class Watcher {
     }
     this.get()
   }
-  addDep(dep){
-    if(!this.depsId.has(dep.id)){
+  addDep(dep) {
+    if (!this.depsId.has(dep.id)) {
       this.deps.push[dep]
       this.depsId.add(dep.id)
     }
@@ -32,8 +33,37 @@ class Watcher {
     this.getter()
     popTarget()
   }
-  update() {
+  run() {
     this.get() // 重新渲染
+  }
+  update() {
+    // 这里不每次都调用get方法
+    queueWatcher(this) // 暂存的概念
+  }
+}
+
+// 将需要批量更新的watcher，存到一个队列里面
+let queue = []
+let has = {}
+let pending = false
+
+function flushSchedulerQueue() {
+  queue.forEach(watcher => watcher.run())
+  queue = []
+  has = {}
+  pending = false
+}
+
+function queueWatcher(watcher) {
+  const id = watcher.id
+  if (!has[id]) {
+    queue.push(watcher)
+    has[id] = true
+    // 等所有的同步代码执行完
+    if (!pending) {
+      pending = true
+      nextTick(flushSchedulerQueue)
+    }
   }
 }
 export default Watcher

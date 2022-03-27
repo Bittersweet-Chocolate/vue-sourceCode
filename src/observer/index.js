@@ -11,6 +11,7 @@ import Dep from './dep'
 // 封装 继承
 class Observer {
   constructor(value) {
+    // $set 方便 给对象新增属性时，直接更新
     this.dep = new Dep()
     defineProperty(value, '__ob__', this)
 

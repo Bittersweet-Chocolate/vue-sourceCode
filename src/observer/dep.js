@@ -11,13 +11,18 @@ class Dep {
   constructor() {
     this.subs = []
     this.id = id++
+    this.watcherIds = new Set
   }
   depend() {
     // 这里需要watcher存放dep
     Dep.target.addDep(this)
-    // this.subs.push(Dep.target)
+    if (!this.watcherIds.has(Dep.target.id)) {
+      this.subs.push(Dep.target)
+      this.watcherIds.add(Dep.target.id)
+    }
   }
   notify() {
+    // 这里有一个问题，视图更新，重新触发defineproperty的get会重新执行depend
     this.subs.forEach(wather => wather.update())
   }
 }

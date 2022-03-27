@@ -19,10 +19,10 @@ export function proxy(vm, data, key) {
 // 判断一个对象有没有被观测过，看有没有__ob__这个属性
 export function defineProperty(target, key, value) {
   // value.__ob__ = this 会无限递归
-  Object.defineProperty(value, '__ob__', {
+  Object.defineProperty(target, key, {
     enumerable: false, // 设置不可枚举，不能被循环，this.work就循环不到该属性
     configurable: false,
-    value: this
+    value
   })
 }
 
@@ -84,4 +84,24 @@ export function mergeOptions(parent, child) {
   }
   console.log(options)
   return options
+}
+
+let callBacks = []
+let pending = false
+
+function flushCallBacks() {
+  callBacks.forEach(cb => cb())
+  callBacks = []
+  pending = false
+}
+export function nextTick(cb) {
+  callBacks.push(cb)
+  if (!pending) {
+    pending = true
+    // vue3 的 nextTick 就算 promise，没有兼容性
+    // vue2 判断有没有 promise,MutationObserver,setImmediate,setTimeout
+    Promise.resolve().then(
+      flushCallBacks()
+    )
+  }
 }

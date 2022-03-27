@@ -8,6 +8,7 @@ import Watcher from "./observer/watcher"
 import { patch } from "./vDom/patch"
 export function lifecycleMixin(Vue) {
   Vue.prototype._update = function(vnode) {
+    // 一个组件上避免多次更新，使用异步更新
     const vm = this
     // 用新创建的元素，替换掉老的vm.$el
     vm.$el = patch(vm.$el, vnode)
@@ -25,7 +26,9 @@ export function mountComponent(vm, el) {
     vm._update(vm._render())
   }
   // 这个watcher用于渲染
-  let watcher = new Watcher(vm, updateComponent, () => {}, true)
+  let watcher = new Watcher(vm, updateComponent, () => {
+    callHook(vm, 'updated')
+  }, { user: false })
   // 把属性和watcher绑定在一起
   callHook(vm, 'mounted')
 }

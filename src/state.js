@@ -1,13 +1,13 @@
 /*
  * @Author: zihao.chen
  * @Date: 2020-09-18 16:11:18
- * @LastEditors: zihao.chen
- * @LastEditTime: 2020-12-23 14:41:12
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-03-26 17:35:01
  * @Description: vue 数据初始化
  */
 
 import { observe } from "./observer/index"
-import { proxy } from './utils'
+import { nextTick, proxy } from './utils'
 export function initState(vm) {
   const opts = vm.$options
   if (opts.props) {
@@ -47,3 +47,9 @@ function initData(vm) {
 function initComputed(vm) {}
 
 function initWatch(vm) {}
+
+export function stateMixin(Vue) {
+  Vue.prototype.$nextTick = function(cb) {
+    nextTick(cb)
+  }
+}
