@@ -11,15 +11,13 @@ class Dep {
   constructor() {
     this.subs = []
     this.id = id++
-    this.watcherIds = new Set
   }
   depend() {
     // 这里需要watcher存放dep
     Dep.target.addDep(this)
-    if (!this.watcherIds.has(Dep.target.id)) {
-      this.subs.push(Dep.target)
-      this.watcherIds.add(Dep.target.id)
-    }
+  }
+  addSub(watch) {
+    this.subs.push(watch)
   }
   notify() {
     // 这里有一个问题，视图更新，重新触发defineproperty的get会重新执行depend
@@ -27,10 +25,14 @@ class Dep {
   }
 }
 Dep.target = null
+let satck = []
 export function pushTarget(watcher) {
   Dep.target = watcher
+  satck.push(watcher)
+  console.log(satck)
 }
 export function popTarget() {
-  Dep.target = null
+  satck.pop()
+  Dep.target = satck[satck.length - 1]
 }
 export default Dep

@@ -9,12 +9,14 @@ let id = 0
 class Watcher {
   // exprOrFn 重新渲染
   // options:true 标识是个渲染watcher
-  constructor(vm, exprOrFn, cb, options) {
+  constructor(vm, exprOrFn, cb, options = {}) {
     this.vm = vm
     this.exprOrFn = exprOrFn
     this.cb = cb
     this.options = options
     this.user = options.user // 用户watcher
+    this.lazy = options.lazy // 表明计算属性，是否第一次执行get
+    this.dirty = this.lazy //  取值的时候，是否执行用户提供的方法
     this.id = id++ //watcher 唯一标识
     this.deps = [] // 记录有多少dep依赖当前watcher
     this.depsId = new Set() // set避免放入重复的dep，因为渲染页面可能存在多个相同的属性
@@ -31,18 +33,21 @@ class Watcher {
         return obj
       }
     }
-    // 默认会先调用一次get方法，进行取值，讲结果保留
-    this.value = this.get()
+    if (!this.lazy) {
+      // 默认会先调用一次get方法，进行取值，讲结果保留
+      this.value = this.get()
+    }
   }
   addDep(dep) {
     if (!this.depsId.has(dep.id)) {
       this.deps.push[dep]
       this.depsId.add(dep.id)
+      dep.addSub(this)
     }
   }
   get() {
     pushTarget(this) // 当前watcher实例
-    let res = this.getter()
+    let res = this.getter.call(this.vm)
     popTarget()
     return res
   }
@@ -51,13 +56,26 @@ class Watcher {
     let oldValue = this.value
     this.value = newValue
     if (this.user) {
-      console.log(123)
       this.cb.call(this, newValue, oldValue)
     }
   }
   update() {
+    if (this.lazy) {
+      this.dirty = true
+      return
+    }
     // 这里不每次都调用get方法
     queueWatcher(this) // 暂存的概念
+  }
+  evaluate() {
+    this.value = this.get()
+    this.dirty = false
+  }
+  depend() {
+    let i = this.deps.length
+    while (i--) {
+      this.deps[i].depend()
+    }
   }
 }
 

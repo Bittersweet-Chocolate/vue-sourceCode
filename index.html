@@ -14,8 +14,7 @@
 
 <body>
   <div id="app" class="test" style="color: red">
-    hello {{name}} world {{msg}}
-    {{arr}}
+    {{fullName}}
   </div>
   <script src="dist/umd/vue.js"></script>
   <script>
@@ -43,17 +42,20 @@
       created () { // 生命周期
         console.log('初始化')
       },
-      watch: {
-        name: {
-          handler (newV, oldV) {
-            console.log(newV, oldV)
-          }
+      // watch: {
+      //   name: {
+      //     handler (newV, oldV) {
+      //       console.log(newV, oldV)
+      //     }
+      //   }
+      // },
+      computed: {
+        // 内部实现也是通过defineProperty 内部有一个变量dirty
+        // computed 还是一个watcher，内部依赖手机属性会收集这个watcher
+        fullName () {
+          return this.age + 123
         }
       }
-      // render(h){
-      //   return h('div',{id:'a'},'hello')
-      // }
-      // template:`<div id="a">hello</div>`
     })
     // 开发功能时很少对数组索引进行操作，为了考虑性能不对数组进行拦截
     // 拦截可以改变数组的方法进行操作
@@ -68,9 +70,9 @@
     //     console.log(vm.$el)
     //   })
     // }, 1000)
-    setTimeout(_ => {
-      vm.name = 12
-    }, 1000)
+    // setTimeout(_ => {
+    //   vm.name = 12
+    // }, 1000)
   </script>
 </body>
 

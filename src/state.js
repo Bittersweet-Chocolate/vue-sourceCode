@@ -2,10 +2,11 @@
  * @Author: zihao.chen
  * @Date: 2020-09-18 16:11:18
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-03-27 14:48:48
+ * @LastEditTime: 2022-03-27 16:00:17
  * @Description: vue 数据初始化
  */
 
+import Dep from "./observer/dep"
 import { observe } from "./observer/index"
 import Watcher from "./observer/watcher"
 import { nextTick, proxy } from './utils'
@@ -45,7 +46,58 @@ function initData(vm) {
   observe(data)
 }
 
-function initComputed(vm) {}
+function initComputed(vm) {
+  let computed = vm.$options.computed
+  // 1.需要又watcher 2.需要defineProperty 3.dirty
+  // 存放计算属性的watcher
+  const watchers = vm._computedWatchers = {}
+  for (let key in computed) {
+    const useDef = computed[key]
+    // watcher使用
+    const getter =
+      typeof useDef === 'function' ? useDef : useDef.get;
+    // lazy 默认不执行
+    watchers[key] = new Watcher(vm, getter, () => {}, { lazy: true })
+    defineComputed(vm, key, useDef)
+  }
+}
+
+function defineComputed(target, key, useDef) {
+  const sharedPropertyDefinition = {
+    enumerable: true,
+    configurable: true,
+    get() {},
+    set() {}
+  }
+  if (typeof useDef === 'function') {
+    sharedPropertyDefinition.get = createComputedGetter(key)
+  } else {
+    // 需要加缓存
+    sharedPropertyDefinition.get = createComputedGetter(key)
+    sharedPropertyDefinition.set = useDef.set
+  }
+  Object.defineProperty(target, key, sharedPropertyDefinition)
+}
+
+function createComputedGetter(key) {
+  // 包装的方法给计算属性
+  return function() {
+    // 拿到这个属性对应的watcher
+    const watcher = this._computedWatchers[key]
+    if (watcher) {
+      if (watcher.dirty) { // 判断要不要执行用户传递的方法
+        console.log('我执行了')
+        watcher.evaluate()
+      }
+      // 证明又渲染watcher
+      if (Dep.target) {
+        watcher.depend()
+      }
+      return watcher.value // 默认返回wacher上的值
+    }
+  }
+}
+
 
 function initWatch(vm) {
   let watch = vm.$options.watch
